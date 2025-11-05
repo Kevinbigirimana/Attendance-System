@@ -1,0 +1,137 @@
+
+body {
+  font-family: "Segoe UI";
+  background-color: #f4f6f8;
+}
+
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+.sidebar {
+  background-color: #9c212b;
+  color: white;
+  width: 220px;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 20px 0;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover, .sidebar a.active {
+  background-color: rgb(207, 186, 186);
+}
+
+.main{
+  flex: 1;
+  padding: 20px;
+}
+
+
+.topbar {
+  background-color: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+
+.section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.section h2 {
+  margin-bottom: 15px;
+  color: #030b13;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout:fixed;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+   
+}
+
+th {
+  background-color: #bc1a27;
+  color: white;
+}
+
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+
+.add-course-container {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.add-btn {
+  background-color: #bc1a25;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background-color: rgb(161, 12, 12);
+}
+
+button {
+  background-color: #bc1a25;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  gap: 0.5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(161, 12, 12);
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    text-align: center;
+  }
+}
