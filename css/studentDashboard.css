@@ -1,15 +1,7 @@
+@import url('styles.css');
 
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-}
+/* Page-specific overrides for student dashboard */
+body{background-color:var(--bg)}
 
 .container {
   display: flex;
@@ -80,7 +72,7 @@ body {
 }
 
 .button-group button:hover {
-  background-color: rgb(161, 12, 12);
+  background-color: rgb(207, 186, 186);
 }
 
 

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    <div> 
+        <h1 id="title">Attendance Portal</h1>
+    </div>
+
+    <div class="login-container">
+        <h1>Log In</h1> 
+    
+        <form id="loginForm">
+            <div>
+                <label id="label1" for="email">Email Address</label><br>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label id="label2" for="password">Password</label><br>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                <button type="submit" id="loginBtn">Log In</button><br><br>
+
+                <label for="remember">Remember Me</label>
+                <input type="checkbox" id="remember" name="rememberMe">
+                <a href="forgot-password.html">Forgot password?</a><br><br>
+                
+                <a id="link1" href="register.html">Create an account</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get form element
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+
+        // Handle form submission
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Client-side validation
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Validate email format
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid Email',
+                    text: 'Please enter a valid email address',
+                    confirmButtonColor: '#4a90e2'
+                });
+                return;
+            }
+
+            // Validate password not empty
+            if (password.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Password Required',
+                    text: 'Please enter your password',
+                    confirmButtonColor: '#4a90e2'
+                });
+                return;
+            }
+
+            // Disable button and show loading
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Logging in...';
+
+            try {
+                // Send data to login.php using Fetch API
+                const response = await fetch('../php/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+
+                // Parse JSON response
+                const data = await response.json();
+
+                // Re-enable button
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
+
+                // Handle response
+                if (data.success) {
+                    // Show success alert
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Successful!',
+                        text: `Welcome back, ${data.username}!`,
+                        confirmButtonColor: '#4a90e2',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        // Redirect based on role
+                        if (data.role === 'faculty') {
+                            window.location.href = '../php/dashboardFaculty.php';
+                        } else if (data.role === 'fi') {
+                            window.location.href = '../php/fiDashboard.php';
+                        } else if (data.role === 'student') {
+                            window.location.href = '../php/studentDashboard.php';
+                        } else {
+                            window.location.href = '../php/dashboard.php';
+                        }
+                    });
+                } else {
+                    // Show error alert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: data.message || 'Invalid credentials',
+                        confirmButtonColor: '#4a90e2'
+                    });
+                }
+
+            } catch (error) {
+                // Re-enable button
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Log In';
+
+                // Show error alert
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Connection Error',
+                    text: 'Unable to connect to server. Please try again.',
+                    confirmButtonColor: '#4a90e2'
+                });
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>

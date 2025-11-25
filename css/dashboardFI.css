@@ -1,13 +1,8 @@
+@import url('styles.css');
 
-body {
-  font-family: "Segoe UI";
-  background-color: #f4f6f8;
-}
+/* Page-specific layout for FI dashboard */
+.dashboard-container{display:flex;height:100vh}
 
-.dashboard-container {
-  display: flex;
-  height: 100vh;
-}
 .sidebar {
   background-color: #9c212b;
   color: white;
@@ -42,11 +37,10 @@ body {
   background-color: rgb(207, 186, 186);
 }
 
-.main{
+.main-content {
   flex: 1;
   padding: 20px;
 }
-
 
 .topbar {
   background-color: white;
@@ -55,7 +49,6 @@ body {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   margin-bottom: 20px;
 }
-
 
 .section {
   background-color: white;
@@ -69,11 +62,9 @@ body {
   color: #030b13;
 }
 
-
 table {
   width: 100%;
   border-collapse: collapse;
-  table-layout:fixed;
 }
 
 th, td {
@@ -88,28 +79,8 @@ th {
   color: white;
 }
 
-
 tr:hover {
-  background-color: #f1f1f1;
-}
-
-
-.add-course-container {
-  text-align: right;
-  margin-top: 15px;
-}
-
-.add-btn {
-  background-color: #bc1a25;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background-color: rgb(161, 12, 12);
+  background-color: rgb(113, 105, 105);
 }
 
 button {
@@ -117,13 +88,12 @@ button {
   color: white;
   border: none;
   padding: 6px 12px;
-  gap: 0.5px;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: rgb(161, 12, 12);
+  background-color: rgb(113, 105, 105);
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: auto;
+}
+
+body {
+    background: linear-gradient(rgba(174, 37, 71, 0.7), rgba(174, 37, 71, 0.7)),
+                url('../images/AshesiImg.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 15px 15px;
+    zoom: 1;
+}
+
+#title {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.createAccount-container {
+    background-color: white;
+    padding: 30px 25px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 420px;
+    text-align: center;
+}
+
+.alert-container {
+    margin-bottom: 8px;
+}
+
+.alert {
+    padding: 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.alert.error {
+    background-color: #fee;
+    color: #c33;
+    border: 1px solid #fcc;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+h3 {
+    color: #666;
+    margin-bottom: 18px;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: italic;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #357ae8;
+}
+
+/* Login link styling */
+.login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.login-link a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+    color: #357ae8;
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 30px 15px 15px;
+    }
+    
+    #title {
+        margin-top: 10px;
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+    
+    .createAccount-container {
+        padding: 20px 18px 18px;
+        width: 90%;
+        max-width: 340px;
+    }
+    
+    form {
+        gap: 6px;
+    }
+}
