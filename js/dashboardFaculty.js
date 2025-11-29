@@ -76,7 +76,7 @@ addForm.addEventListener('submit', (e) => {
     
     const formData = new FormData(addForm);
     
-    fetch('course_handler.php', {
+    fetch('add_course.php', {
         method: 'POST',
         body: formData
     })
@@ -99,7 +99,7 @@ editForm.addEventListener('submit', (e) => {
     
     const formData = new FormData(editForm);
     
-    fetch('course_handler.php', {
+    fetch('edit_course.php', {
         method: 'POST',
         body: formData
     })
@@ -136,7 +136,7 @@ function deleteCourse(courseId, courseCode) {
     const formData = new FormData();
     formData.append('course_id', courseId);
     
-    fetch('course_handler.php', {
+    fetch('delete_course.php', {
         method: 'POST',
         body: formData
     })

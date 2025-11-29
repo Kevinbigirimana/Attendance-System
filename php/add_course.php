@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Add Course Script
  * Uses user_id directly as faculty_id (no separate faculty table)
