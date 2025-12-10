@@ -9,7 +9,7 @@ body{background-color:var(--bg)}
 }
 
 .sidebar {
-  background-color: #9c212b;
+  background-color:  #45a3aa;
   color: white;
   width: 220px;
   padding: 20px;
@@ -61,7 +61,7 @@ body{background-color:var(--bg)}
 }
 
 .button-group button {
-  background-color: #bc1a25;
+  background-color:  #45a3aa;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -72,7 +72,7 @@ body{background-color:var(--bg)}
 }
 
 .button-group button:hover {
-  background-color: rgb(207, 186, 186);
+  background-color:  #45a3aa;
 }
 
 
@@ -103,7 +103,7 @@ th, td {
 }
 
 th {
-  background-color: #bc1a27;
+  background-color:  #45a3aa;
   color: white;
  
 
@@ -114,7 +114,7 @@ tr:hover {
 }
 
 button {
-  background-color: #bc1a25;
+  background-color:  #45a3aa;
   color: white;
   border: none;
   padding: 6px 12px;
@@ -123,7 +123,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(132, 117, 117);
+  background-color:  #45a3aa;
 }
 
 

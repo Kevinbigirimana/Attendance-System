@@ -97,7 +97,24 @@ session_start();
                 You are logged in as: <?php echo htmlspecialchars($_SESSION['role']); ?>
             </div>
             <div class="btn-group">
-                <a href="php/dashboard<?php echo ucfirst($_SESSION['role']); ?>.php" class="btn btn-primary">
+                <?php
+                // Map role to correct dashboard file
+                $dashboard_file = '';
+                switch($_SESSION['role']) {
+                    case 'faculty':
+                        $dashboard_file = 'php/dashboardFaculty.php';
+                        break;
+                    case 'fi':
+                        $dashboard_file = 'php/fiDashboard.php';
+                        break;
+                    case 'student':
+                        $dashboard_file = 'php/studentDashboard.php';
+                        break;
+                    default:
+                        $dashboard_file = 'html/login.html';
+                }
+                ?>
+                <a href="<?php echo $dashboard_file; ?>" class="btn btn-primary">
                     Go to Dashboard
                 </a>
                 <a href="php/logout.php" class="btn btn-secondary">Log Out</a>

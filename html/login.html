@@ -92,30 +92,50 @@
                 // Parse JSON response
                 const data = await response.json();
 
+                // Debug - log the response
+                console.log('Login response:', data);
+
                 // Re-enable button
                 loginBtn.disabled = false;
                 loginBtn.textContent = 'Log In';
 
                 // Handle response
                 if (data.success) {
-                    // Show success alert
+                    // Redirect based on role immediately
+                    let redirectUrl = '';
+                    if (data.role === 'faculty') {
+                        redirectUrl = '../php/dashboardFaculty.php';
+                    } else if (data.role === 'fi') {
+                        redirectUrl = '../php/fiDashboard.php';
+                    } else if (data.role === 'student') {
+                        redirectUrl = '../php/studentDashboard.php';
+                    }// else {
+                      //  redirectUrl = '../php/studentDashboard.php'; // default
+                    //}
+
+                    console.log('Role:', data.role, 'Redirecting to:', redirectUrl);
+
+                    // If redirectUrl is empty, show error
+                    if (!redirectUrl) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Invalid user role: ' + data.role,
+                            confirmButtonColor: '#4a90e2'
+                        });
+                        return;
+                    }
+
+                    // Show success alert and redirect
                     Swal.fire({
                         icon: 'success',
                         title: 'Login Successful!',
                         text: `Welcome back, ${data.username}!`,
                         confirmButtonColor: '#4a90e2',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => {
-                        // Redirect based on role
-                        if (data.role === 'faculty') {
-                            window.location.href = '../php/dashboardFaculty.php';
-                        } else if (data.role === 'fi') {
-                            window.location.href = '../php/fiDashboard.php';
-                        } else if (data.role === 'student') {
-                            window.location.href = '../php/studentDashboard.php';
-                        } else {
-                            window.location.href = '../php/dashboard.php';
+                        timer: 1500,
+                        showConfirmButton: false,
+                        willClose: () => {
+                            window.location.href = redirectUrl;
                         }
                     });
                 } else {

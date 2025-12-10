@@ -80,7 +80,7 @@ table th {
 }
 
 .add-button {
-  background-color: #007bff;
+  background-color: #44a0bc;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -90,7 +90,7 @@ table th {
 }
 
 .add-button:hover {
-  background-color: #0056b3;
+  background-color: #45a3aa;
 }
 
 /* NEW: Action buttons for Edit/Delete */
@@ -199,7 +199,7 @@ table th {
 }
 
 .modal-buttons button[type="submit"] {
-    background-color: #4a90e2;
+    background-color: #45a3aa;
     color: white;
 }
 
@@ -217,7 +217,7 @@ table th {
 }
 
 .edit-btn {
-    background-color: #4a90e2;
+    background-color: #45a3aa;
     color: white;
 }
 

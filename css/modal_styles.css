@@ -47,7 +47,7 @@
 
 .search-container button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color:  #45a3aa;
     color: white;
     border: none;
     border-radius: 4px;
@@ -56,7 +56,7 @@
 }
 
 .search-container button:hover {
-    background-color: #0056b3;
+    background-color:  #45a3aa;
 }
 
 /* Course List */
@@ -172,12 +172,12 @@
 }
 
 .modal-buttons button[type="submit"] {
-    background-color: #007bff;
+    background-color: #45a3aa;
     color: white;
 }
 
 .modal-buttons button[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #45a3aa;
 }
 
 /* Form Groups */

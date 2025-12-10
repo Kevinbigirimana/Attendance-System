@@ -3,7 +3,7 @@
  * Delete Course Script
  */
 
-session_start();
+require_once __DIR__ . '/session_config.php';
 
 // Set header for JSON response
 header('Content-Type: application/json');

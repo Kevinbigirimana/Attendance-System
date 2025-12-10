@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/session_config.php';
 header('Content-Type: application/json');
 
 // Database connection
@@ -42,7 +42,7 @@ if (strlen($password) < 6) {
 
 try {
     // Check if email already exists
-    $check_sql = "SELECT user_id FROM users WHERE email = ?";
+    $check_sql = "SELECT user_id FROM attendance_users WHERE email = ?";
     $check_stmt = $conn->prepare($check_sql);
     $check_stmt->bind_param("s", $email);
     $check_stmt->execute();
@@ -58,7 +58,7 @@ try {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // FIXED: Use password_hash column instead of password
-    $sql = "INSERT INTO users (first_name, last_name, email, role, password_hash) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO attendance_users (first_name, last_name, email, role, password_hash) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if ($stmt) {

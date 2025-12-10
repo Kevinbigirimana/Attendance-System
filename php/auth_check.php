@@ -4,11 +4,10 @@
  * Handles both regular page loads and AJAX requests
  */
 
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+// Include session configuration for concurrent user support
+require_once __DIR__ . '/session_config.php';
 
+// Session is now started in session_config.php
 // Check if user is logged in
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     
@@ -30,13 +29,13 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         echo json_encode([
             'success' => false, 
             'message' => 'Not logged in. Please login first.',
-            'redirect' => 'login.php'
+            'redirect' => '../html/login.html'
         ]);
         exit();
     }
     
     // Otherwise, redirect to login page (for regular page loads)
-    header("Location: login.php");
+    header("Location: ../html/login.html");
     exit();
 }
 ?>

@@ -5,14 +5,14 @@
  * Uses user_id directly as faculty_id (no separate faculty table)
  */
 
-session_start();
+require_once __DIR__ . '/session_config.php';
 
 // Set header for JSON response
 header('Content-Type: application/json');
 
-// Check if user is logged in and is admin
-if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'faculty') {
-    echo json_encode(['success' => false, 'message' => 'Unauthorized access']);
+// Check if user is logged in and is faculty or fi
+if (!isset($_SESSION['logged_in']) || !in_array($_SESSION['role'], ['faculty', 'fi'])) {
+    echo json_encode(['success' => false, 'message' => 'Unauthorized access. Faculty or FI privileges required.']);
     exit();
 }
 

@@ -101,11 +101,11 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 select:focus {
     outline: none;
-    border-color: #4a90e2;
+    border-color: #45a3aa;
 }
 
 button {
-    background-color: #4a90e2;
+    background-color: #45a3aa;
     color: white;
     border: none;
     padding: 12px;
@@ -118,7 +118,7 @@ button {
 }
 
 button:hover {
-    background-color: #357ae8;
+    background-color:  #45a3aa;
 }
 
 /* Login link styling */
@@ -129,14 +129,14 @@ button:hover {
 }
 
 .login-link a {
-    color: #4a90e2;
+    color: #45a3aa;
     text-decoration: none;
     font-weight: bold;
 }
 
 .login-link a:hover {
     text-decoration: underline;
-    color: #357ae8;
+    color: #45a3aa;
 }
 
 @media (max-width: 480px) {

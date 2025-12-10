@@ -23,11 +23,11 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     exit();
 }
 
-// Check if user is faculty
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'faculty') {
-    error_log('Faculty Handler: User is not faculty. Role: ' . ($_SESSION['role'] ?? 'none'));
+// Check if user is faculty or fi
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], ['faculty', 'fi'])) {
+    error_log('Faculty Handler: User is not faculty/fi. Role: ' . ($_SESSION['role'] ?? 'none'));
     http_response_code(403);
-    echo json_encode(['success' => false, 'message' => 'Access denied. Faculty privileges required.']);
+    echo json_encode(['success' => false, 'message' => 'Access denied. Faculty or FI privileges required.']);
     exit();
 }
 
@@ -51,7 +51,7 @@ try {
                         u.email as student_email,
                         c.course_code, c.course_name
                         FROM enrollments e
-                        JOIN users u ON e.student_id = u.user_id
+                        JOIN attendance_users u ON e.student_id = u.user_id
                         JOIN courses c ON e.course_id = c.course_id
                         WHERE c.course_id = ? AND c.faculty_id = ? AND e.status = 'pending'
                         ORDER BY e.request_date DESC";
@@ -68,7 +68,7 @@ try {
                         u.email as student_email,
                         c.course_code, c.course_name
                         FROM enrollments e
-                        JOIN users u ON e.student_id = u.user_id
+                        JOIN attendance_users u ON e.student_id = u.user_id
                         JOIN courses c ON e.course_id = c.course_id
                         WHERE c.faculty_id = ? AND e.status = 'pending'
                         ORDER BY e.request_date DESC";
@@ -235,7 +235,7 @@ try {
                     CONCAT(u.first_name, ' ', u.last_name) as student_name,
                     u.email as student_email
                     FROM enrollments e
-                    JOIN users u ON e.student_id = u.user_id
+                    JOIN attendance_users u ON e.student_id = u.user_id
                     JOIN courses c ON e.course_id = c.course_id
                     WHERE c.course_id = ? AND c.faculty_id = ? AND e.status = 'approved'
                     ORDER BY u.last_name, u.first_name";
@@ -262,6 +262,51 @@ try {
             
             echo json_encode(['success' => true, 'students' => $students]);
             $stmt->close();
+            break;
+        
+        case 'remove_enrolled_student':
+            $enrollment_id = intval($_POST['enrollment_id'] ?? 0);
+            
+            if ($enrollment_id <= 0) {
+                echo json_encode(['success' => false, 'message' => 'Invalid enrollment ID']);
+                break;
+            }
+            
+            // Verify enrollment belongs to faculty's course
+            $verify_sql = "SELECT e.enrollment_id, e.course_id
+                          FROM enrollments e
+                          JOIN courses c ON e.course_id = c.course_id
+                          WHERE e.enrollment_id = ? AND c.faculty_id = ?";
+            $verify_stmt = $conn->prepare($verify_sql);
+            $verify_stmt->bind_param("ii", $enrollment_id, $faculty_id);
+            $verify_stmt->execute();
+            $verify_result = $verify_stmt->get_result();
+            
+            if ($verify_result->num_rows === 0) {
+                echo json_encode(['success' => false, 'message' => 'Access denied or enrollment not found']);
+                $verify_stmt->close();
+                break;
+            }
+            
+            $enrollment_data = $verify_result->fetch_assoc();
+            $verify_stmt->close();
+            
+            // Delete enrollment (attendance_records will cascade delete)
+            $delete_sql = "DELETE FROM enrollments WHERE enrollment_id = ?";
+            $delete_stmt = $conn->prepare($delete_sql);
+            $delete_stmt->bind_param("i", $enrollment_id);
+            
+            if ($delete_stmt->execute()) {
+                echo json_encode([
+                    'success' => true, 
+                    'message' => 'Student removed successfully',
+                    'course_id' => $enrollment_data['course_id']
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to remove student']);
+            }
+            
+            $delete_stmt->close();
             break;
         
         default:

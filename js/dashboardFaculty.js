@@ -377,6 +377,7 @@ function displayEnrolledStudents(students) {
     html += '<th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Student Name</th>';
     html += '<th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Email</th>';
     html += '<th style="padding: 10px; text-align: left; border-bottom: 2px solid #dee2e6;">Enrolled Date</th>';
+    html += '<th style="padding: 10px; text-align: center; border-bottom: 2px solid #dee2e6;">Actions</th>';
     html += '</tr></thead><tbody>';
     
     students.forEach(student => {
@@ -384,6 +385,9 @@ function displayEnrolledStudents(students) {
         html += '<td style="padding: 10px;">' + student.student_name + '</td>';
         html += '<td style="padding: 10px;">' + student.student_email + '</td>';
         html += '<td style="padding: 10px;">' + new Date(student.approval_date).toLocaleDateString() + '</td>';
+        html += '<td style="padding: 10px; text-align: center;">';
+        html += '<button class="delete-btn" onclick="removeEnrolledStudent(' + student.enrollment_id + ', \'' + student.student_name + '\')">Remove</button>';
+        html += '</td>';
         html += '</tr>';
     });
     
@@ -392,4 +396,37 @@ function displayEnrolledStudents(students) {
     html += '</div>';
     
     enrolledStudentsList.innerHTML = html;
+}
+
+// Remove enrolled student
+function removeEnrolledStudent(enrollmentId, studentName) {
+    if (!confirm(`Are you sure you want to remove ${studentName} from this course? This will delete all their attendance records for this course.`)) {
+        return;
+    }
+    
+    const formData = new FormData();
+    formData.append('action', 'remove_enrolled_student');
+    formData.append('enrollment_id', enrollmentId);
+    
+    fetch('faculty_requests_handler.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Student removed successfully');
+            // Reload the modal with updated list
+            const courseId = document.getElementById('enrolledStudentsTitle').textContent.split(' - ')[1];
+            const courseCode = document.getElementById('enrolledStudentsTitle').textContent.split(' - ')[1];
+            enrolledStudentsModal.style.display = 'none';
+            viewEnrolledStudents(data.course_id, courseCode);
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to remove student');
+    });
 }
